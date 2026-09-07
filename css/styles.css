@@ -1,0 +1,300 @@
+/* Starfield OS - Master Futuristic Design System & HUD Styling */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap');
+
+:root {
+  --font-orbitron: 'Orbitron', -apple-system, sans-serif;
+  --font-rajdhani: 'Rajdhani', -apple-system, sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-sans: 'Inter', sans-serif;
+
+  /* Vanguard Theme Defaults */
+  --primary: #00f0ff;
+  --secondary: #0077ff;
+  --accent: #38bdf8;
+  --glow: rgba(0, 240, 255, 0.45);
+  --glass-bg: rgba(3, 18, 38, 0.72);
+  --border-glow: rgba(0, 240, 255, 0.35);
+  --panel-corner: #00f0ff;
+}
+
+/* Ship Theme Overrides */
+.theme-vanguard {
+  --primary: #00f0ff;
+  --secondary: #0077ff;
+  --accent: #38bdf8;
+  --glow: rgba(0, 240, 255, 0.45);
+  --glass-bg: rgba(3, 18, 38, 0.78);
+  --border-glow: rgba(0, 240, 255, 0.35);
+  --panel-corner: #00f0ff;
+}
+
+.theme-aegis {
+  --primary: #ffaa00;
+  --secondary: #ff5500;
+  --accent: #fbbf24;
+  --glow: rgba(255, 170, 0, 0.45);
+  --glass-bg: rgba(38, 20, 3, 0.82);
+  --border-glow: rgba(255, 170, 0, 0.4);
+  --panel-corner: #ffaa00;
+}
+
+.theme-quantum {
+  --primary: #c084fc;
+  --secondary: #e879f9;
+  --accent: #a855f7;
+  --glow: rgba(192, 132, 252, 0.45);
+  --glass-bg: rgba(28, 5, 42, 0.8);
+  --border-glow: rgba(192, 132, 252, 0.4);
+  --panel-corner: #e879f9;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body {
+  background-color: #030712;
+  color: #f8fafc;
+  font-family: var(--font-rajdhani), sans-serif;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Fullscreen 3D Canvas */
+#webgl-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  outline: none;
+  cursor: crosshair;
+}
+
+/* Glassmorphism Panel Tokens */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glow);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.03);
+  position: relative;
+}
+
+/* Sci-Fi Decorative Corner Accents */
+.sci-fi-corners::before,
+.sci-fi-corners::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--panel-corner);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.sci-fi-corners::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--panel-corner);
+  border-left: 2px solid var(--panel-corner);
+}
+
+.sci-fi-corners::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--panel-corner);
+  border-right: 2px solid var(--panel-corner);
+}
+
+/* Subtle Scanline Overlay */
+.scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  ),
+  linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+}
+
+/* Typography Classes */
+.font-orbitron {
+  font-family: var(--font-orbitron), sans-serif;
+  letter-spacing: 0.08em;
+}
+
+.font-rajdhani {
+  font-family: var(--font-rajdhani), sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.font-mono {
+  font-family: var(--font-mono), monospace;
+}
+
+/* Glowing Neon Text */
+.glow-text {
+  color: var(--primary);
+  text-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow);
+}
+
+.glow-border {
+  border-color: var(--primary);
+  box-shadow: 0 0 15px var(--glow), inset 0 0 10px var(--glow);
+}
+
+/* 3D Reticle in Screen Space */
+.target-reticle {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.15s ease-out;
+  z-index: 20;
+}
+
+.reticle-ring {
+  width: 72px;
+  height: 72px;
+  border: 1.5px dashed var(--primary);
+  border-radius: 50%;
+  animation: spin 12s linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px var(--glow);
+}
+
+.reticle-center-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--primary);
+}
+
+.reticle-corner-bracket {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: var(--primary);
+}
+
+.bracket-tl { top: -4px; left: -4px; border-top: 2px solid; border-left: 2px solid; }
+.bracket-tr { top: -4px; right: -4px; border-top: 2px solid; border-right: 2px solid; }
+.bracket-bl { bottom: -4px; left: -4px; border-bottom: 2px solid; border-left: 2px solid; }
+.bracket-br { bottom: -4px; right: -4px; border-bottom: 2px solid; border-right: 2px solid; }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.05); }
+}
+
+/* Cockpit Canopy Frame Effect */
+.cockpit-frame-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: radial-gradient(circle at center, transparent 65%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+/* Interactive Sliders & Progress Bars */
+.hud-progress-bar {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  overflow: hidden;
+  height: 8px;
+}
+
+.hud-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--secondary), var(--primary));
+  box-shadow: 0 0 10px var(--glow);
+  transition: width 0.2s ease-out;
+}
+
+/* Custom Scrollbar for Terminals & Codex */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--glow);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Button & Trigger Styling */
+.btn-sci-fi {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+  border: 1px solid var(--border-glow);
+  color: var(--primary);
+  font-family: var(--font-orbitron);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.btn-sci-fi::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-sci-fi:hover {
+  background: var(--primary);
+  color: #030712;
+  box-shadow: 0 0 20px var(--glow);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.btn-sci-fi:hover::before {
+  left: 100%;
+}
+
+.btn-sci-fi:active {
+  transform: translateY(1px);
+}

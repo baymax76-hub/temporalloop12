@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starfield OS — Multiverse Constellation Explorer</title>
+  <meta name="description" content="A universe you fly through — every star's a story, every constellation's a connection. 3D Open-Space WebGL Experience with custom ship HUDs and multiversal narrative.">
+  <meta name="keywords" content="Three.js, WebGL, 3D Space Flight, Sci-Fi HUD, Constellations, Multiverse, Creative Technologist">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            orbitron: ['Orbitron', 'sans-serif'],
+            rajdhani: ['Rajdhani', 'sans-serif'],
+            mono: ['Share Tech Mono', 'monospace'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            cyber: {
+              cyan: '#00f0ff',
+              blue: '#0077ff',
+              amber: '#ffaa00',
+              purple: '#c084fc',
+              pink: '#e879f9',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Three.js & GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- Custom CSS Tokens & Themes -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-950 text-slate-100 overflow-hidden select-none w-screen h-screen">
+
+  <!-- Fullscreen 3D WebGL Canvas -->
+  <canvas id="webgl-canvas" class="fixed inset-0 w-full h-full z-0"></canvas>
+
+  <!-- Dynamic Flight HUD Interface Layer -->
+  <div id="hud-layer" class="fixed inset-0 z-20 pointer-events-none w-full h-full"></div>
+
+  <!-- Holographic Terminal, Intro & Codex Modals Layer -->
+  <div id="modal-layer" class="fixed inset-0 z-40 pointer-events-none w-full h-full"></div>
+
+  <!-- Main ES Module Entry Point -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
